@@ -1,63 +1,48 @@
-# Tutorial: рабочий процесс по лендингу 1XBET
+# Tutorial: что изучили и внедрили (1XBET LATAM)
 
-## Что это за репозиторий
-`Tutorial-` хранит только инструкцию/обучение по процессу.
+Этот репозиторий хранит краткую выжимку обучения и практических шагов, которые мы сделали на проекте.
 
-Код сайта находится в отдельном репозитории:
-- `https://github.com/egorande228/website-mob-cash-lama`
+Основной код лендинга:
+- https://github.com/egorande228/website-mob-cash-lama
 
-## Single Source of Truth
-Все правки сайта делаются только в:
-- локальном клоне `website-mob-cash-lama`
-- ветке `main`
-- с обязательным `push` после завершенной задачи
+## 1) Инфраструктура и запуск
+- Подключили домен: `1xbet-latam.com`
+- Развернули сайт через Cloudflare Pages (из GitHub)
+- Подключили `www.1xbet-latam.com`
+- Настроили SSL и HTTPS
+- Сделали редирект `www -> apex` (на основной домен без `www`)
 
-`Tutorial-` не используется для редактирования HTML/CSS/JS лендинга.
+## 2) Аналитика (GA4)
+- Подключили Google Analytics 4:
+  - Measurement ID: `G-0P2ZWVJEH1`
+- Внедрили `gtag` в страницы:
+  - `company-site/index.html`
+  - `company-site/agent.html`
+  - `company-site/partner.html`
+- Добавили событие `lead` на ключевые действия пользователя
 
-## Текущая структура сайта (актуально)
-Репозиторий сайта: `website-mob-cash-lama`
+## 3) PropellerAds и трекинг
+- Сформировали рабочий Target URL с UTM-метками
+- Добавили передачу click/sub id в URL
+- Подключили S2S postback на стороне лендинга:
+  - при `lead` отправляется postback в Propeller
+- Расширили логику: конверсия отправляется при кликах на Telegram/WhatsApp CTA
 
-Ключевые файлы:
-- `company-site/index.html`
-- `company-site/agent.html`
-- `company-site/partner.html`
-- `company-site/css/styles.css`
-- `company-site/js/main.js`
-- `company-site/assets/*`
+## 4) Фиксы фронтенда
+- Исправили мобильное меню (особенно под iPhone):
+  - подняли `z-index` верхнего меню/выпадающего nav
+  - добавили закрытие меню после клика по пункту
+- Обновили версию ассетов (`?v=...`) для принудительного сброса кэша на мобильных
 
-## Как работать правильно
-1. Открыть репозиторий сайта:
-   - `cd "/Users/egorande/Documents/New project"`
-2. Проверить состояние:
-   - `git status -sb`
-   - `git remote -v`
-3. Внести изменения только в `company-site/*`
-4. Проверить локально через HTTP-сервер
-5. Зафиксировать и отправить:
-   - `git add ...`
-   - `git commit -m "..."`
-   - `git push origin main`
+## 5) Практический рабочий процесс
+1. Делаем правки в `website-mob-cash-lama`
+2. Коммитим и пушим в `main`
+3. Cloudflare Pages автоматически деплоит
+4. Проверяем прод на мобильных и в GA4 Realtime
 
-## Локальный предпросмотр
-```bash
-cd "/Users/egorande/Documents/New project/company-site"
-python3 -m http.server 4173
-```
-Открыть в браузере:
-- `http://127.0.0.1:4173/index.html`
-
-## Публикация / демонстрация
-Для временного показа можно использовать Vercel/другой хостинг,
-но рабочий источник кода остается `website-mob-cash-lama`.
-
-## Что уже внедрено в сайте (кратко)
-- ES/PT/EN переключатель языка в верхнем меню
-- Обновленная комиссия `8%` + калькулятор по `8%`
-- Обновленные CTA-блоки Telegram/WhatsApp
-- Улучшенный блок роста на странице Partner
-- Удален блок `Agent Academy`
-
-## Чеклист перед новым чатом
-- Проверить синхронизацию: `git fetch origin && git status -sb`
-- Убедиться, что `main...origin/main` без отставания
-- Продолжать с последнего коммита в `website-mob-cash-lama`
+## 6) Что важно помнить
+- Для рекламных запусков обязательно проверять:
+  - корректный `Target URL`
+  - наличие `SUBID/clickid`
+  - факт прихода `lead` в GA4
+- Если изменения не видны на iPhone, сначала проверяем кэш и версию подключенных CSS/JS.
