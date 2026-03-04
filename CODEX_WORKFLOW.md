@@ -1,29 +1,35 @@
 # Codex GitHub Workflow (Mandatory)
 
 ## Core rule
-All website changes must be made only inside the local clone of:
+Source of truth for website code is GitHub only:
 `https://github.com/egorande228/website-mob-cash-lama.git`
 
-Working root:
-`/Users/egorande/Documents/New project`
+Local clone is temporary and used only while editing.
 
-## Before any work
-1. Open the repo root.
-2. Check branch/status:
+## Start work (temporary clone)
+1. Clone when needed:
+   - `git clone https://github.com/egorande228/website-mob-cash-lama.git`
+2. Open the repo root.
+3. Check branch/status:
    - `git status -sb`
    - `git remote -v`
-3. Ensure changes are made only in this repo root and tracked files.
 
 ## During work
-1. Edit files only inside this repository.
+1. Edit files only inside this repository clone.
 2. Commit in small logical steps.
 3. Push after each completed task:
    - `git push origin main`
 
+## Finish work
+1. Ensure remote is up to date and clean:
+   - `git status -sb`
+   - `git push origin main`
+2. If no local copy is needed, remove the clone from the laptop.
+
 ## Strict constraints
-1. Do not work from random local folders outside this repo.
-2. Do not keep a second "working copy" outside this repo.
-3. Source of truth is GitHub + this clone only.
+1. Do not treat laptop folders as source of truth.
+2. Do not keep unpushed changes locally.
+3. Source of truth is GitHub only.
 
 ## Recovery / sync checklist
 1. `git fetch origin`
@@ -32,4 +38,4 @@ Working root:
 4. Continue edits.
 
 ## Cross-chat continuity
-If another chat/session opens this same repo path and branch, work can continue normally with full continuity after `git status` check.
+Any new chat/session can continue from a fresh clone after `git status` check.
